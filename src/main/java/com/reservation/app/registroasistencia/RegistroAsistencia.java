@@ -22,9 +22,9 @@ public class RegistroAsistencia {
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_sesion", nullable = false)
+    @JoinColumn(name = "id_sesion", nullable = true)
     private Sesion sesion;
 
-    @Column(nullable = false)
+    @Column(name = "fecha_hora_registro", nullable = false)
     private LocalDateTime fechaHoraRegistro;
 }

@@ -9,6 +9,8 @@ import java.util.List;
 @Repository
 public interface RegistroAsistenciaRepository extends JpaRepository<RegistroAsistencia, Long> {
     // Métodos personalizados si es necesario
+    //List<RegistroAsistencia> obtenerUsuarioPorId(Usuario usuario);
+    //List<RegistroAsistencia> obtenerSesionPorId(Sesion sesion);
     List<RegistroAsistencia> findByUsuario(Usuario usuario);
     List<RegistroAsistencia> findBySesion(Sesion sesion);
 }

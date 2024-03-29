@@ -5,11 +5,13 @@ import org.springframework.web.bind.annotation.*;
 import com.reservation.app.sesion.Sesion;
 import com.reservation.app.usuario.Usuario;
 import com.reservation.app.registroasistencia.RegistroAsistencia;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 
-import javax.crypto.SecretKey;
+import java.util.List;
+//import io.jsonwebtoken.Jwts;
+//import io.jsonwebtoken.SignatureAlgorithm;
+//import io.jsonwebtoken.security.Keys;
+
+//import javax.crypto.SecretKey;
 
 
 
@@ -74,33 +76,69 @@ public class ConferenceController {
         conferenceService.eliminarRegistroAsistencia(id);
     }
 
-    // Endpoint para validar el token
-@RestController
-@RequestMapping("/api/auth")
+    // Endpoints para Usuario
+    @PostMapping("/usuarios")
+    public Usuario crearUsuario(@RequestBody Usuario usuario) {
+        return conferenceService.guardarUsuario(usuario);
+    }
 
-public class AuthController {
+    @GetMapping("/usuarios/{id}")
+    public Usuario obtenerUsuario(@PathVariable Long id) {
+        return conferenceService.obtenerUsuarioPorId(id);
+    }
 
-   
-    private final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    @PutMapping("/usuarios/{id}")
+    public Usuario actualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
+        usuario.setId(id);
+        return conferenceService.actualizarUsuario(usuario);
+    }
 
-    @PostMapping("/login")
-    public String login(@RequestBody Usuario usuario) {
-        // Validar credenciales
-        if (usuario.getCorreoElectronico().equals("admin") && usuario.getContrasena().equals("admin")) {
-            // Generar token
-            byte[] key = "mySecretKey".getBytes();
-            String token = Jwts.builder()
-                    .setSubject(usuario.getCorreoElectronico())
-                    .signWith(null, Keys.hmacShaKeyFor(key))
-                    .compact();
-            return token;
-        } else {
-            return "Credenciales incorrectas";
-        }
+    @DeleteMapping("/usuarios/{id}")
+    public void eliminarUsuario(@PathVariable Long id) {
+        conferenceService.eliminarUsuario(id);
+    }
+
+    @GetMapping("/usuarios")
+    public List<Usuario> obtenerListaUsuarios() {
+        return conferenceService.getUsersSortedByName();
+    }
+
+    // Endpoint para buscar usuario por email
+    @GetMapping("/usuarios/email/{email}")
+    public Usuario obtenerUsuarioPorEmail(@PathVariable String email) {
+        return conferenceService.findUserByEmail(email);
     }
 
     
-}
+    
+
+    // Endpoint para validar el token
+//@RestController
+//@RequestMapping("/api/auth")
+
+//public class AuthController {
+
+   
+//    private final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+
+//    @PostMapping("/login")
+//    public String login(@RequestBody Usuario usuario) {
+        // Validar credenciales
+//        if (usuario.getCorreoElectronico().equals("admin") && usuario.getContrasena().equals("admin")) {
+            // Generar token
+            //byte[] key = "mySecretKey".getBytes();
+//            String token = Jwts.builder()
+//                    .setSubject(usuario.getCorreoElectronico())
+//                    .signWith(key)
+//                    .compact();
+//            return token;
+//        } else {
+//            return "Credenciales incorrectas";
+//        }
+//    }
+
+    
+//}
 
 }
     

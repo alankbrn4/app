@@ -30,7 +30,7 @@ public class ConferenceService {
         this.usuarioRepository = null;
     }
 
-    //@Autowired
+    @Autowired
     private final RegistroAsistenciaRepository registroAsistenciaRepository;
 
     //@Autowired
@@ -40,7 +40,7 @@ public class ConferenceService {
         this.usuarioRepository = null;
     }
 
-    //@Autowired
+    @Autowired
     private final UsuarioRepository usuarioRepository;
 
     //@Autowired
@@ -69,41 +69,49 @@ public class ConferenceService {
     }
 
     // Método para guardar una sesión
+    //@SuppressWarnings("null")
     public Sesion guardarSesion(Sesion sesion) {
         return sesionRepository.save(sesion);
     }
 
     // Método para obtener una sesión por su ID
+    //@SuppressWarnings("null")
     public Sesion obtenerSesionPorId(Long id) {
         return sesionRepository.findById(id).orElse(null);
     }
 
     // Método para actualizar una sesión
+    //@SuppressWarnings("null")
     public Sesion actualizarSesion(Sesion sesion) {
         return sesionRepository.save(sesion);
     }
 
     // Método para eliminar una sesión
+    //@SuppressWarnings("null")
     public void eliminarSesion(Long id) {
         sesionRepository.deleteById(id);
     }
 
     // Método para guardar un registro de asistencia
+    //@SuppressWarnings("null")
     public RegistroAsistencia guardarRegistroAsistencia(RegistroAsistencia registroAsistencia) {
         return registroAsistenciaRepository.save(registroAsistencia);
     }
 
     // Método para obtener un registro de asistencia por su ID
+    //@SuppressWarnings("null")
     public RegistroAsistencia obtenerRegistroAsistenciaPorId(Long id) {
         return registroAsistenciaRepository.findById(id).orElse(null);
     }
 
     // Método para actualizar un registro de asistencia
+    //@SuppressWarnings("null")
     public RegistroAsistencia actualizarRegistroAsistencia(RegistroAsistencia registroAsistencia) {
         return registroAsistenciaRepository.save(registroAsistencia);
     }
 
     // Método para eliminar un registro de asistencia
+    //@SuppressWarnings("null")
     public void eliminarRegistroAsistencia(Long id) {
         registroAsistenciaRepository.deleteById(id);
     }
@@ -127,5 +135,27 @@ public class ConferenceService {
          }
          return null;
      }
+
+    // Método para guardar un usuario
+    public Usuario guardarUsuario(Usuario usuario) {
+        return usuarioRepository.save(usuario);
+    }
+
+    // Método para obtener un usuario por su ID
+    public Usuario obtenerUsuarioPorId(Long id) {
+        return usuarioRepository.findById(id).orElse(null);
+    }
+
+    // Método para actualizar un usuario
+    public Usuario actualizarUsuario(Usuario usuario) {
+        return usuarioRepository.save(usuario);
+    }
+
+    // Método para eliminar un usuario
+    public void eliminarUsuario(Long id) {
+        usuarioRepository.deleteById(id);
+    }
+
+    
 
 }
