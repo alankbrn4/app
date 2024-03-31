@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import com.reservation.app.sesion.Sesion;
 import com.reservation.app.usuario.Usuario;
 import com.reservation.app.registroasistencia.RegistroAsistencia;
+import com.reservation.app.exceptions.UsuarioNoEncontradoException;
 
 import java.util.List;
 //import io.jsonwebtoken.Jwts;
@@ -53,8 +54,24 @@ public class ConferenceController {
     // Endpoints para RegistroAsistencia
     @PostMapping("/registros")
     public RegistroAsistencia crearRegistroAsistencia(@RequestBody RegistroAsistencia registroAsistencia) {
-        Usuario usuario = registroAsistencia.getUsuario();
+        //Usuario usuario = registroAsistencia.getUsuario();
         Sesion sesion = registroAsistencia.getSesion();
+
+        // Obtener el ID del usuario desde el registro de asistencia
+        Long userId = registroAsistencia.getUsuario().getId();
+    
+        // Obtener el usuario utilizando el ID
+        Usuario usuario = conferenceService.obtenerUsuarioPorId(userId);
+    
+        // Validar si el usuario existe
+        if(usuario == null) {
+        // Manejar el caso donde el usuario no existe
+        // Puedes lanzar una excepción, devolver un error, etc.
+        throw new UsuarioNoEncontradoException("El usuario con ID " + userId + " no se encuentra en la base de datos.");
+        }
+    
+        // Asignar el usuario al registro de asistencia
+        registroAsistencia.setUsuario(usuario);
 
         conferenceService.validarRegistroUsuario(usuario, sesion);
         return conferenceService.guardarRegistroAsistencia(registroAsistencia);

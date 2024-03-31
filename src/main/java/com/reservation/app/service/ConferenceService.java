@@ -33,7 +33,7 @@ public class ConferenceService {
     @Autowired
     private final RegistroAsistenciaRepository registroAsistenciaRepository;
 
-    //@Autowired
+    @Autowired
     public ConferenceService(RegistroAsistenciaRepository registroAsistenciaRepository) {
         this.sesionRepository = null;
         this.registroAsistenciaRepository = registroAsistenciaRepository;
@@ -43,7 +43,7 @@ public class ConferenceService {
     @Autowired
     private final UsuarioRepository usuarioRepository;
 
-    //@Autowired
+    @Autowired
     public ConferenceService(UsuarioRepository usuarioRepository) {
         this.sesionRepository = null;
         this.registroAsistenciaRepository = null;
